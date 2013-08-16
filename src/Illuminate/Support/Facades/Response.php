@@ -82,13 +82,13 @@ class Response {
 	 * @param  array   $headers
 	 * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
 	 */
-	public static function download($file, $name = null, array $headers = array())
+	public static function download($file, $name = null, $nameFallback = null, array $headers = array())
 	{
 		$response = new BinaryFileResponse($file, 200, $headers, true, 'attachment');
 
 		if ( ! is_null($name))
 		{
-			return $response->setContentDisposition('attachment', $name);
+			return $response->setContentDisposition('attachment', $name, $nameFallback);
 		}
 
 		return $response;
